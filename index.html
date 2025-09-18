@@ -1,1 +1,651 @@
-#hheeoeooe
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index 911ea4a58736df5922286abbd150944184ec9b3d..f9aab70cd0c2955a8672605f7109b6677e0bf953 100644
+--- a/index.html
++++ b/index.html
+@@ -1 +1,641 @@
+-#hheeoeooe
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>Norbu Essence &mdash; Bhutanese Luxury Perfume</title>
++    <link rel="preconnect" href="https://fonts.googleapis.com">
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
++    <style>
++        :root {
++            color-scheme: light;
++            --bg: #f7f3ed;
++            --ink: #2d2327;
++            --muted: #6a595f;
++            --accent: #c47d4e;
++            --accent-soft: rgba(196, 125, 78, 0.18);
++            --line: rgba(45, 35, 39, 0.15);
++            --card: rgba(255, 255, 255, 0.6);
++        }
++
++        * {
++            box-sizing: border-box;
++        }
++
++        body {
++            margin: 0;
++            font-family: 'Poppins', 'Segoe UI', sans-serif;
++            background: var(--bg);
++            color: var(--ink);
++            overflow-x: hidden;
++        }
++
++        .page {
++            position: relative;
++            min-height: 100vh;
++            background:
++                radial-gradient(1200px 1200px at 5% 15%, rgba(196, 125, 78, 0.28), transparent),
++                radial-gradient(900px 900px at 90% 0%, rgba(137, 77, 37, 0.16), transparent),
++                linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(247, 243, 237, 0.95));
++        }
++
++        header {
++            padding: 28px clamp(1.5rem, 5vw, 5rem);
++            display: flex;
++            align-items: center;
++            justify-content: space-between;
++        }
++
++        .logo {
++            font-family: 'Cormorant Garamond', serif;
++            font-size: clamp(1.5rem, 4vw, 2.4rem);
++            letter-spacing: 0.16em;
++            text-transform: uppercase;
++            font-weight: 500;
++        }
++
++        nav {
++            display: flex;
++            gap: 1.5rem;
++        }
++
++        nav a {
++            font-size: 0.95rem;
++            text-transform: uppercase;
++            letter-spacing: 0.12em;
++            color: var(--muted);
++            text-decoration: none;
++            position: relative;
++            padding-bottom: 4px;
++        }
++
++        nav a::after {
++            content: '';
++            position: absolute;
++            left: 0;
++            bottom: 0;
++            width: 100%;
++            height: 2px;
++            background: linear-gradient(90deg, transparent, var(--accent), transparent);
++            opacity: 0;
++            transform: scaleX(0.6);
++            transition: opacity 0.3s ease, transform 0.3s ease;
++        }
++
++        nav a:focus-visible,
++        nav a:hover {
++            color: var(--ink);
++        }
++
++        nav a:focus-visible::after,
++        nav a:hover::after {
++            opacity: 1;
++            transform: scaleX(1);
++        }
++
++        main {
++            padding: 0 clamp(1.5rem, 6vw, 6rem) 6rem;
++        }
++
++        .hero {
++            display: grid;
++            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
++            gap: 3rem;
++            padding: 5rem 0 6rem;
++            position: relative;
++        }
++
++        .hero::before {
++            content: '';
++            position: absolute;
++            inset: 10% 55% auto 0;
++            height: 60%;
++            background: linear-gradient(120deg, rgba(196, 125, 78, 0.5), rgba(233, 200, 164, 0.1));
++            border-radius: 32px;
++            filter: blur(0.5px);
++            z-index: -1;
++        }
++
++        .hero-copy h1 {
++            font-family: 'Cormorant Garamond', serif;
++            font-size: clamp(2.8rem, 6vw, 4.6rem);
++            line-height: 1.1;
++            margin: 0 0 1.5rem;
++            text-transform: uppercase;
++        }
++
++        .hero-copy p {
++            font-size: 1.15rem;
++            line-height: 1.7;
++            max-width: 540px;
++            color: var(--muted);
++        }
++
++        .hero-actions {
++            display: flex;
++            gap: 1.25rem;
++            flex-wrap: wrap;
++            margin-top: 2.5rem;
++        }
++
++        .button {
++            padding: 0.95rem 2.8rem;
++            border-radius: 999px;
++            border: 1px solid transparent;
++            font-size: 0.95rem;
++            letter-spacing: 0.18em;
++            text-transform: uppercase;
++            background: var(--accent);
++            color: #fff;
++            text-decoration: none;
++            transition: transform 0.3s ease, box-shadow 0.3s ease;
++        }
++
++        .button.secondary {
++            background: transparent;
++            color: var(--ink);
++            border-color: rgba(45, 35, 39, 0.25);
++        }
++
++        .button:hover,
++        .button:focus-visible {
++            transform: translateY(-3px);
++            box-shadow: 0 12px 26px rgba(45, 35, 39, 0.18);
++        }
++
++        .hero-gallery {
++            display: grid;
++            grid-template-columns: repeat(2, minmax(120px, 1fr));
++            gap: 1.5rem;
++            align-content: start;
++        }
++
++        .hero-card {
++            position: relative;
++            padding: 2.2rem 1.8rem;
++            border-radius: 28px;
++            background: rgba(255, 255, 255, 0.72);
++            backdrop-filter: blur(12px);
++            border: 1px solid rgba(255, 255, 255, 0.6);
++            box-shadow: 0 35px 60px rgba(45, 35, 39, 0.08);
++        }
++
++        .hero-card::after {
++            content: '';
++            position: absolute;
++            inset: 12px;
++            border-radius: 20px;
++            border: 1px solid var(--accent-soft);
++            opacity: 0.5;
++        }
++
++        .hero-card span {
++            display: block;
++            font-family: 'Cormorant Garamond', serif;
++            text-transform: uppercase;
++            letter-spacing: 0.3em;
++            font-size: 0.75rem;
++            color: var(--muted);
++        }
++
++        .hero-card strong {
++            display: block;
++            margin-top: 1rem;
++            font-size: 1.35rem;
++            line-height: 1.4;
++            font-weight: 500;
++        }
++
++        section {
++            margin-bottom: 5rem;
++        }
++
++        h2.section-title {
++            font-family: 'Cormorant Garamond', serif;
++            text-transform: uppercase;
++            letter-spacing: 0.28em;
++            font-size: 1.85rem;
++            margin-bottom: 2.5rem;
++            position: relative;
++        }
++
++        h2.section-title::after {
++            content: '';
++            position: absolute;
++            left: 0;
++            bottom: -12px;
++            width: 120px;
++            height: 1px;
++            background: linear-gradient(90deg, var(--accent), transparent);
++        }
++
++        .philosophy {
++            display: grid;
++            gap: 2rem;
++            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
++        }
++
++        .philosophy p {
++            line-height: 1.8;
++            color: var(--muted);
++        }
++
++        .philosophy .highlight {
++            padding: 1.8rem;
++            border-radius: 26px;
++            background: var(--card);
++            backdrop-filter: blur(6px);
++            border: 1px solid rgba(196, 125, 78, 0.28);
++        }
++
++        .notes-grid {
++            display: grid;
++            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
++            gap: 1.5rem;
++        }
++
++        .note-card {
++            padding: 2.2rem 1.9rem;
++            border-radius: 28px;
++            background: rgba(255, 255, 255, 0.82);
++            border: 1px solid rgba(45, 35, 39, 0.08);
++            position: relative;
++            overflow: hidden;
++        }
++
++        .note-card::before {
++            content: '';
++            position: absolute;
++            inset: 0;
++            background: radial-gradient(circle at 30% 20%, rgba(196, 125, 78, 0.16), transparent 60%);
++            opacity: 0;
++            transition: opacity 0.3s ease;
++        }
++
++        .note-card:hover::before,
++        .note-card:focus-within::before {
++            opacity: 1;
++        }
++
++        .note-title {
++            font-family: 'Cormorant Garamond', serif;
++            font-size: 1.3rem;
++            letter-spacing: 0.12em;
++            text-transform: uppercase;
++            margin-bottom: 0.75rem;
++        }
++
++        .note-body {
++            font-size: 0.95rem;
++            line-height: 1.8;
++            color: var(--muted);
++        }
++
++        .ritual {
++            border-radius: 30px;
++            padding: 3rem clamp(1.8rem, 6vw, 4rem);
++            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(233, 220, 205, 0.65));
++            border: 1px solid rgba(45, 35, 39, 0.08);
++            position: relative;
++            overflow: hidden;
++        }
++
++        .ritual::after {
++            content: '';
++            position: absolute;
++            inset: 20px;
++            border-radius: 24px;
++            border: 1px dashed rgba(196, 125, 78, 0.38);
++            pointer-events: none;
++        }
++
++        .ritual-steps {
++            display: grid;
++            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
++            gap: 2rem;
++        }
++
++        .ritual-step {
++            position: relative;
++            padding-left: 2.5rem;
++        }
++
++        .ritual-step::before {
++            content: attr(data-step);
++            position: absolute;
++            top: 0;
++            left: 0;
++            width: 32px;
++            height: 32px;
++            border-radius: 50%;
++            background: rgba(196, 125, 78, 0.35);
++            display: grid;
++            place-items: center;
++            font-size: 0.85rem;
++            letter-spacing: 0.08em;
++        }
++
++        .ritual-step h3 {
++            font-family: 'Cormorant Garamond', serif;
++            font-size: 1.2rem;
++            margin-bottom: 0.5rem;
++            letter-spacing: 0.08em;
++            text-transform: uppercase;
++        }
++
++        .ritual-step p {
++            margin: 0;
++            line-height: 1.8;
++            color: var(--muted);
++        }
++
++        .experience {
++            display: grid;
++            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
++            gap: 2.5rem;
++            align-items: center;
++        }
++
++        .experience-copy p {
++            line-height: 1.8;
++            color: var(--muted);
++        }
++
++        .experience-card {
++            padding: 2.6rem 2.2rem;
++            border-radius: 32px;
++            background: rgba(255, 255, 255, 0.9);
++            border: 1px solid rgba(196, 125, 78, 0.24);
++            box-shadow: 0 30px 50px rgba(45, 35, 39, 0.08);
++        }
++
++        .experience-card form {
++            display: grid;
++            gap: 1.2rem;
++        }
++
++        label {
++            font-size: 0.85rem;
++            text-transform: uppercase;
++            letter-spacing: 0.16em;
++            color: var(--muted);
++        }
++
++        input,
++        textarea {
++            width: 100%;
++            padding: 0.85rem 1rem;
++            border-radius: 16px;
++            border: 1px solid rgba(45, 35, 39, 0.18);
++            background: rgba(255, 255, 255, 0.86);
++            font-family: inherit;
++            font-size: 0.95rem;
++        }
++
++        textarea {
++            min-height: 120px;
++            resize: vertical;
++        }
++
++        footer {
++            padding: 3rem clamp(1.5rem, 6vw, 6rem) 4rem;
++            border-top: 1px solid rgba(45, 35, 39, 0.1);
++            display: grid;
++            gap: 1.5rem;
++            font-size: 0.9rem;
++            color: var(--muted);
++        }
++
++        .footer-top {
++            display: flex;
++            flex-wrap: wrap;
++            gap: 1.5rem;
++            align-items: baseline;
++            justify-content: space-between;
++        }
++
++        .footer-top strong {
++            font-family: 'Cormorant Garamond', serif;
++            font-size: 1.4rem;
++            letter-spacing: 0.12em;
++            text-transform: uppercase;
++        }
++
++        .footer-links {
++            display: flex;
++            gap: 1.2rem;
++        }
++
++        .footer-links a {
++            color: inherit;
++            text-decoration: none;
++            letter-spacing: 0.1em;
++        }
++
++        .footer-links a:hover,
++        .footer-links a:focus-visible {
++            color: var(--ink);
++        }
++
++        @media (max-width: 720px) {
++            nav {
++                display: none;
++            }
++
++            header {
++                justify-content: center;
++            }
++
++            .hero::before {
++                inset: auto 5% 10% 5%;
++                height: 45%;
++            }
++        }
++    </style>
++</head>
++<body>
++    <div class="page">
++        <header>
++            <div class="logo">Norbu Essence</div>
++            <nav>
++                <a href="#story">Story</a>
++                <a href="#accords">Accords</a>
++                <a href="#rituals">Ritual</a>
++                <a href="#experience">Experience</a>
++            </nav>
++        </header>
++        <main>
++            <section class="hero">
++                <div class="hero-copy">
++                    <h1>The rare quiet of Bhutan, distilled.</h1>
++                    <p>
++                        Norbu Essence is a contemporary perfume house rooted in the sacred valleys of Bhutan.
++                        We craft fragrances that honour traditional incense ceremonies, weaving notes of blue pine,
++                        saffron, and wild rhododendron into a modern symphony of luxury.
++                    </p>
++                    <div class="hero-actions">
++                        <a class="button" href="#experience">Book a private sampling</a>
++                        <a class="button secondary" href="#story">Discover our heritage</a>
++                    </div>
++                </div>
++                <div class="hero-gallery" aria-hidden="true">
++                    <div class="hero-card">
++                        <span>Signature Accord</span>
++                        <strong>Juniper smoke rising through alpine dawn.</strong>
++                    </div>
++                    <div class="hero-card">
++                        <span>Craft</span>
++                        <strong>Hand-blended in Thimphu with ceremonial precision.</strong>
++                    </div>
++                    <div class="hero-card">
++                        <span>Texture</span>
++                        <strong>Silk-wrapped bottles etched with endless knot motifs.</strong>
++                    </div>
++                    <div class="hero-card">
++                        <span>Presence</span>
++                        <strong>Gracefully lingering, like prayer flags in mountain winds.</strong>
++                    </div>
++                </div>
++            </section>
++
++            <section id="story">
++                <h2 class="section-title">Philosophy</h2>
++                <div class="philosophy">
++                    <p>
++                        Each Norbu Essence fragrance is an ode to Bhutan&rsquo;s balance of material grace and spiritual depth.
++                        We collaborate with local artisans, from paper-makers in Punakha to incense masters in Paro,
++                        ensuring every bottle carries a story of mindful creation.
++                    </p>
++                    <div class="highlight">
++                        <p>
++                            The palette is inspired by the hues of dzong architecture &mdash; polished timber, sun-warmed clay,
++                            and the gilded roofs that catch the first light over Himalayan peaks.
++                        </p>
++                    </div>
++                    <p>
++                        Minimalist by design, our compositions celebrate negative space. Subtle, lingering accords mirror the
++                        stillness of Bhutanese monasteries while inviting modern expression.
++                    </p>
++                </div>
++            </section>
++
++            <section id="accords">
++                <h2 class="section-title">Signature Accords</h2>
++                <div class="notes-grid">
++                    <article class="note-card">
++                        <h3 class="note-title">Druk Sunrise</h3>
++                        <p class="note-body">
++                            Sparkling mandarin and Himalayan neroli, crowned by saffron threads and grounded in sandalwood.
++                            A perfume that captures the first sun cresting over Dochula Pass.
++                        </p>
++                    </article>
++                    <article class="note-card">
++                        <h3 class="note-title">Silk &amp; Cypress</h3>
++                        <p class="note-body">
++                            Notes of blue cypress smoke, cardamom chai, and amber resin evoke a quiet evening within the
++                            courtyards of Punakha Dzong.
++                        </p>
++                    </article>
++                    <article class="note-card">
++                        <h3 class="note-title">Paro Bloom</h3>
++                        <p class="note-body">
++                            Wild rhododendron petals, white tea, and cashmere musk. Soft yet persistent, like prayer wheels
++                            turning beneath flowering eaves.
++                        </p>
++                    </article>
++                    <article class="note-card">
++                        <h3 class="note-title">Thunder Dragon Noir</h3>
++                        <p class="note-body">
++                            Black fig, midnight orchid, and aged oak barrel smoke. A sultry homage to the strength of the
++                            druk, Bhutan&rsquo;s thunder dragon.
++                        </p>
++                    </article>
++                </div>
++            </section>
++
++            <section id="rituals">
++                <h2 class="section-title">Rituals of Scent</h2>
++                <div class="ritual">
++                    <div class="ritual-steps">
++                        <div class="ritual-step" data-step="01">
++                            <h3>Purify</h3>
++                            <p>
++                                Begin with juniper incense, an ancestral practice that sanctifies spaces and welcomes new
++                                beginnings.
++                            </p>
++                        </div>
++                        <div class="ritual-step" data-step="02">
++                            <h3>Awaken</h3>
++                            <p>
++                                Warm the fragrance upon the wrists, allowing saffron and citrus notes to shimmer with your
++                                natural warmth.
++                            </p>
++                        </div>
++                        <div class="ritual-step" data-step="03">
++                            <h3>Adorn</h3>
++                            <p>
++                                Trace the perfume along silk scarves or collars, letting the aroma echo like layered textiles
++                                in traditional kira and gho.
++                            </p>
++                        </div>
++                        <div class="ritual-step" data-step="04">
++                            <h3>Offer</h3>
++                            <p>
++                                Share the lingering trail as an offering of presence &mdash; a gentle reminder of Bhutanese
++                                generosity and grace.
++                            </p>
++                        </div>
++                    </div>
++                </div>
++            </section>
++
++            <section id="experience">
++                <h2 class="section-title">Private Experience</h2>
++                <div class="experience">
++                    <div class="experience-copy">
++                        <p>
++                            Reserve a bespoke consultation at our Thimphu atelier. Explore raw ingredients sourced directly
++                            from Bhutan&rsquo;s highlands and design a fragrance narrative that is distinctly yours.
++                        </p>
++                        <p>
++                            Our perfumers guide you through mindful breathing rituals, tea pairings, and layering techniques
++                            to curate a signature aura for every occasion.
++                        </p>
++                    </div>
++                    <div class="experience-card" role="form" aria-labelledby="experience">
++                        <form>
++                            <div>
++                                <label for="name">Name</label>
++                                <input id="name" name="name" type="text" placeholder="Your name" />
++                            </div>
++                            <div>
++                                <label for="email">Email</label>
++                                <input id="email" name="email" type="email" placeholder="you@example.com" />
++                            </div>
++                            <div>
++                                <label for="message">Intent</label>
++                                <textarea id="message" name="message" placeholder="Share the mood you wish to create"></textarea>
++                            </div>
++                            <button class="button" type="submit">Request Consultation</button>
++                        </form>
++                    </div>
++                </div>
++            </section>
++        </main>
++        <footer>
++            <div class="footer-top">
++                <strong>Norbu Essence</strong>
++                <div class="footer-links">
++                    <a href="mailto:atelier@norbuessence.com">atelier@norbuessence.com</a>
++                    <a href="tel:+97517300000">+975 1730 0000</a>
++                    <a href="#experience">Visit the atelier</a>
++                </div>
++            </div>
++            <div>
++                Crafted in Thimphu, honoring Bhutan&rsquo;s timeless harmony between land and spirit.
++            </div>
++        </footer>
++    </div>
++</body>
++</html>
+ 
+EOF
+)
